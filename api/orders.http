@@ -1,0 +1,59 @@
+### GET ORDERS
+
+GET {{API_URL}}/orders HTTP/1.1
+
+
+### GET ORDER
+
+GET {{API_URL}}/orders/1 HTTP/1.1
+
+
+### ADD ORDER
+
+POST {{API_URL}}/orders HTTP/1.1
+
+{
+    "paymentId": 1,
+    "buyerId": null,
+    "paid": 20000,
+    "items": [
+      {
+        "productId": 1,
+        "qty": 2,
+        "price": 3000,
+      },
+      {
+        "productId": 2,
+        "qty": 2,
+        "price": 7000,
+      },
+    ],
+}
+
+
+### UPDATE ORDER
+
+POST {{API_URL}}/orders/1 HTTP/1.1
+
+{
+    "paymentId": 1,
+    "buyerId": null,
+    "paid": 20000,
+    "items": [
+      {
+        "productId": 1,
+        "qty": 2,
+        "price": 3000,
+      },
+      {
+        "productId": 2,
+        "qty": 2,
+        "price": 7000,
+      },
+    ],
+}
+
+
+### DELETE ORDER
+
+POST {{API_URL}}/orders/1 HTTP/1.1

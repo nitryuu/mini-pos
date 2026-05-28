@@ -1,0 +1,13 @@
+### GET PRODUCTS
+
+GET {{API_URL}}/products HTTP/1.1
+
+
+### GET PRODUCT
+
+GET {{API_URL}}/products/1 HTTP/1.1
+
+
+### DELETE PRODUCT
+
+DELETE {{API_URL}}/products/1 HTTP/1.1

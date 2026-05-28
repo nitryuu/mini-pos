@@ -1,0 +1,1 @@
+CREATE INDEX "idx_notifications_user_id_role" ON "notifications" USING btree ("user_id","role");

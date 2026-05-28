@@ -1,0 +1,20 @@
+### REFRESH
+
+POST {{API_URL}}/auth/refresh HTTP/1.1
+Cookie: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInRva2VuSWQiOiIzNTc5ZjEwZC02YzQ2LTQ5YmUtODI0OS00MDk0ZTg1NGQzOWMiLCJleHAiOjE3Nzk3ODA2MjN9.EVgdZOS7-x8UShRxdPHeIEF0DvHUR0YMD0s9VE5Pd-g; Max-Age=604800; Path=/; HttpOnly; SameSite=Strict
+
+
+### LOGIN
+
+POST {{API_URL}}/auth/login HTTP/1.1
+
+{
+  "email": "john@gmail.com",
+  "password": "admin"
+}
+
+
+### LOGOUT
+
+POST {{API_URL}}/auth/logout HTTP/1.1
+Cookie: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsInRva2VuSWQiOiJhMzJmMWZlOS05MWM4LTQ2OGQtYmYyOS02OGE3NmIxMDAzNGUiLCJleHAiOjE3NzkxMDczNzJ9.ccWf0IJb14Dow7bhgRzpMnDHxV39OaJXainMRUYojGQ; Max-Age=604800; Path=/; HttpOnly; SameSite=Strict

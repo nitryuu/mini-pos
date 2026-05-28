@@ -1,0 +1,38 @@
+### GET BUYERS
+
+GET {{API_URL}}/buyers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoia2V2aW5AZ21haWwuY29tIiwicm9sZSI6ImNhc2hpZXIiLCJleHAiOjE3Nzg1MDk2ODl9.9Jckw-Sm-PVtYUrPT1BWjK6t4JqCuRQ-HVTyo7kNMIM
+
+
+### GET BUYER
+
+GET {{API_URL}}/buyers/5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoia2V2aW5AZ21haWwuY29tIiwicm9sZSI6ImNhc2hpZXIiLCJleHAiOjE3Nzg1MDk2ODl9.9Jckw-Sm-PVtYUrPT1BWjK6t4JqCuRQ-HVTyo7kNMIM
+
+
+### ADD BUYER
+
+POST {{API_URL}}/buyers HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoia2V2aW5AZ21haWwuY29tIiwicm9sZSI6ImNhc2hpZXIiLCJleHAiOjE3Nzg1MDM2NTB9.1GZUf3SfOKgzoko1WLI2V6THZi3gdqJO6fLHXgE8Y-s
+
+{
+  "name": "John",
+  "note": ""
+}
+
+
+### UPDATE BUYER
+
+POST {{API_URL}}/buyers/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoia2V2aW5AZ21haWwuY29tIiwicm9sZSI6ImNhc2hpZXIiLCJleHAiOjE3Nzg1MDM2NTB9.1GZUf3SfOKgzoko1WLI2V6THZi3gdqJO6fLHXgE8Y-s
+
+{
+  "name": "John",
+  "note": ""
+}
+
+
+### DELETE BUYER
+
+DELETE {{API_URL}}/buyers/5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjcsImVtYWlsIjoia2V2aW5AZ21haWwuY29tIiwicm9sZSI6ImNhc2hpZXIiLCJleHAiOjE3Nzg1MDY1MzR9.CZUQchm6UrV1xGUmqtCRAsaBvDn330-qjzLRM0xwpxw

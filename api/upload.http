@@ -1,0 +1,15 @@
+### UPLOAD IMAGE
+
+POST {{API_URL}}/upload/image?folder=products HTTP/1.1
+Origin: http://localhost:3000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary{{$timestamp}}
+Cookie: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInRva2VuSWQiOiJmMDc5ZDEzMy1mNjkzLTRhNTktYWEyMi0xMjI1ZDhhYTNmMTgiLCJleHAiOjE3ODAwMjg4OTh9.krLdLTx4uIAbOBalMsgt9jf1ttS8sMlPHgQ_T1gjPpQ; Max-Age=604800; Path=/; HttpOnly; SameSite=Strict
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiY2FzaGllciIsImV4cCI6MTc3OTQyNTkyOX0.afRcjzeJ8SqqdLVV7YIhyYCyMPzcPr2CPFR0IZHVqu0
+
+------WebKitFormBoundary{{$timestamp}}
+Content-Disposition: form-data; name="file"; filename="logo.jpg"
+Content-Type: image/jpeg
+
+< /home/nitryuu/Downloads/dark-abstract-background.jpg
+
+------WebKitFormBoundary{{$timestamp}}--

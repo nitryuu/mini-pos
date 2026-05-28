@@ -1,0 +1,28 @@
+### REGISTER USER
+
+POST localhost:3000/users HTTP/1.1
+
+{
+  "email": "john@gmail.com",
+  "name": "John",
+  "password": "admin",
+  "role": "cashier"
+}
+
+
+### UPDATE USER
+
+PUT {{API_URL}}/users/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiY2FzaGllciIsImV4cCI6MTc3OTE3NjcyM30.-vo6-62WhxToD4zFSKZyt5sCkKMIThJX629EaSrI9n4
+
+{
+  "email": "john@gmail.com",
+  "name": "John",
+  "password": "admin",
+  "role": "admin"
+}
+
+
+### DELETE USER
+
+DELETE {{API_URL}}/users/1 HTTP/1.1
