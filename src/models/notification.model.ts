@@ -19,6 +19,9 @@ export const notificationTypes = pgEnum("notification_types", [
   "product:deleted",
   "product:low_stock",
   "product:out_of_stock",
+  "export:completed",
+  "export:failed",
+  "export:progress",
 ]);
 
 const usersRoles = pgEnum("users_roles", ["admin", "cashier"]);
