@@ -24,6 +24,10 @@ export const WS_EVENTS = {
   PRODUCT_LOW_STOCK: "product:low_stock",
   PRODUCT_OUT_OF_STOCK: "product:out_of_stock",
 
+  EXPORT_COMPLETED: "export:completed",
+  EXPORT_FAILED: "export:failed",
+  EXPORT_PROGRESS: "export:progress",
+
   SYSTEM_ANNOUNCEMENT: "system:announcement",
 
   CONNECTED: "connected",
