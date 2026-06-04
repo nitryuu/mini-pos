@@ -43,7 +43,6 @@ export const useDb = () => {
       db.delete(schema.users),
       db.delete(schema.orders),
       db.delete(schema.orderItems),
-      db.delete(schema.notifications),
       db.delete(schema.products),
     ]);
   });
