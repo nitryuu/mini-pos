@@ -1,6 +1,6 @@
 ### REGISTER USER
 
-POST localhost:3000/users HTTP/1.1
+POST {{API_URL}}/users HTTP/1.1
 
 {
   "email": "john@gmail.com",
