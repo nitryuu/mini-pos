@@ -1,11 +1,27 @@
 ### GET PRODUCTS
 
-GET {{API_URL}}/products HTTP/1.1
+GET {{API_URL}}/products?limit=11 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODAyOTk1NTJ9.QKlF-28T77dT7zhdP1nCrJGmlqWiuiO2XU-UCj8_0NY
+
+
+### ADD PRODUCT
+
+POST {{API_URL}}/products HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODA0NjYxNTR9.wVG1Kt5WxGWMasegLRPhxvD5s4nvTl2Euw7IzDMEHLk
+
+{
+    "barcode": "12309809ads",
+    "name": "Product A",
+    "qty": 6,
+    "price": 1000.00,
+    "image": null,
+}
 
 
 ### GET PRODUCT
 
 GET {{API_URL}}/products/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODAyOTk1NTJ9.QKlF-28T77dT7zhdP1nCrJGmlqWiuiO2XU-UCj8_0NY
 
 
 ### DELETE PRODUCT
