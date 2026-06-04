@@ -76,13 +76,15 @@ export class OrdersService implements IOrdersService {
         const alreadyNotified = await this.redis.get(redisKey);
 
         if (!alreadyNotified) {
-          wsManager.sendToAdmins("product:out_of_stock", { ...p });
-          await this.redis.set(
-            redisKey,
-            "1",
-            "EX",
-            config.redis.productNotificationExpiry,
-          );
+          await Promise.all([
+            wsManager.sendToAdmins("product:out_of_stock", { ...p }),
+            this.redis.set(
+              redisKey,
+              "1",
+              "EX",
+              config.redis.productNotificationExpiry,
+            ),
+          ]);
         }
       }
 
@@ -91,13 +93,15 @@ export class OrdersService implements IOrdersService {
         const alreadyNotified = await this.redis.get(redisKey);
 
         if (!alreadyNotified) {
-          wsManager.sendToAdmins("product:low_stock", { ...p });
-          await this.redis.set(
-            redisKey,
-            "1",
-            "EX",
-            config.redis.productNotificationExpiry,
-          );
+          await Promise.all([
+            wsManager.sendToAdmins("product:low_stock", { ...p }),
+            this.redis.set(
+              redisKey,
+              "1",
+              "EX",
+              config.redis.productNotificationExpiry,
+            ),
+          ]);
         }
       }
     }
@@ -128,13 +132,15 @@ export class OrdersService implements IOrdersService {
         const alreadyNotified = await this.redis.get(redisKey);
 
         if (!alreadyNotified) {
-          wsManager.sendToAdmins("product:out_of_stock", { ...p });
-          await this.redis.set(
-            redisKey,
-            "1",
-            "EX",
-            config.redis.productNotificationExpiry,
-          );
+          await Promise.all([
+            wsManager.sendToAdmins("product:out_of_stock", { ...p }),
+            this.redis.set(
+              redisKey,
+              "1",
+              "EX",
+              config.redis.productNotificationExpiry,
+            ),
+          ]);
         }
       }
 
@@ -143,13 +149,15 @@ export class OrdersService implements IOrdersService {
         const alreadyNotified = await this.redis.get(redisKey);
 
         if (!alreadyNotified) {
-          wsManager.sendToAdmins("product:low_stock", { ...p });
-          await this.redis.set(
-            redisKey,
-            "1",
-            "EX",
-            config.redis.productNotificationExpiry,
-          );
+          await Promise.all([
+            wsManager.sendToAdmins("product:low_stock", { ...p }),
+            this.redis.set(
+              redisKey,
+              "1",
+              "EX",
+              config.redis.productNotificationExpiry,
+            ),
+          ]);
         }
       }
     }
