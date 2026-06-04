@@ -1,7 +1,7 @@
 ### EXPORT ORDER
 
 POST {{API_URL}}/exports HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODAxMjYyOTN9.J1PRaMbzRLRxrXUlCMiuUfoTd7ovOyS2X8cWcVjIufg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODA0NTY0MDZ9.1FaOTGKC5kSCzvq3jtxo7Uz7GmqG2bIXXY0-15INW7g
 
 {
   "endDate": "2020-01-01T06:15:00Z",
@@ -11,5 +11,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsI
 
 ### GET EXPORT STATUS
 
-GET {{API_URL}}/exports/3 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODAxMjYyOTN9.J1PRaMbzRLRxrXUlCMiuUfoTd7ovOyS2X8cWcVjIufg
+GET {{API_URL}}/exports/5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODA0NTY0MDZ9.1FaOTGKC5kSCzvq3jtxo7Uz7GmqG2bIXXY0-15INW7g
