@@ -4,7 +4,7 @@ import { orders } from "./order.model";
 
 export const payments = pgTable("payments", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  name: varchar({ length: 10 }).notNull(),
+  name: varchar({ length: 10 }).notNull().unique(),
 });
 
 export const paymentsRelations = relations(payments, ({ many }) => ({

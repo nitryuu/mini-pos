@@ -12,6 +12,8 @@ import { uploadRoutes } from "./upload";
 import { rbacMiddleware } from "@/middleware/rbac";
 import { wsRoute } from "./ws";
 import { exportRoutes } from "./export";
+import { paymentsRoutes } from "./payments";
+import { metricsRoute } from "./metrics";
 
 const globalLimit = rateLimitMiddleware(config.rateLimit.global);
 const authLimit = rateLimitMiddleware(config.rateLimit.auth);
@@ -24,11 +26,13 @@ export default function registerRoutes(app: Hono) {
 
   api.use("/auth/*", authLimit);
   api.route("/auth", authRoutes);
+  api.route("/metrics", metricsRoute);
 
   api.use(globalLimit);
   api.use(authMiddleware);
 
   api.route("/upload", uploadRoutes);
+  api.route("/payments", paymentsRoutes);
   api.route("/buyers", buyersRoutes);
   api.route("/products", productsRoutes);
   api.route("/orders", ordersRoutes);

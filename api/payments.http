@@ -1,0 +1,4 @@
+### GET PAYMENTS
+
+GET {{API_URL}}/payments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODAyOTgzMTN9.MOkiCxyPia-CsAMIZWJTdDiTv-kMy-klWNYR6tCbYbU
