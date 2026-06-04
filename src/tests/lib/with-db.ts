@@ -9,7 +9,6 @@ import { drizzle } from "drizzle-orm/bun-sql";
 import { migrate } from "drizzle-orm/bun-sql/migrator";
 import { PaymentsRepository } from "@/repositories/payments.repo";
 import { SQL } from "bun";
-import { Wait } from "testcontainers";
 
 let client: SQL;
 let db: DB;
@@ -26,7 +25,14 @@ export const useDb = () => {
       .withPassword("test")
       .start();
 
-    client = new SQL(container.getConnectionUri());
+    client = new SQL(container.getConnectionUri(), {
+      max: 15,
+      idleTimeout: 45,
+      connectionTimeout: 20000,
+      maxLifetime: 300000,
+      onclose: () => console.log("DB connection closed"),
+      onconnect: () => console.log("DB connected"),
+    });
 
     db = drizzle({
       client,
