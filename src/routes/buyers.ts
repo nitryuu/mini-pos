@@ -1,11 +1,12 @@
 import { createBuyersController } from "@/controllers/buyers.ctrl";
 import { db } from "@/lib/db";
+import { redis } from "@/lib/redis";
 import { BuyersRepository } from "@/repositories/buyers.repo";
 import { BuyersService } from "@/services/buyers.svc";
 import { Hono } from "hono";
 
 const repo = new BuyersRepository(db);
-const svc = new BuyersService(repo);
+const svc = new BuyersService(repo, redis);
 const ctrl = createBuyersController(svc);
 
 export const buyersRoutes = new Hono();

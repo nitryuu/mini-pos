@@ -1,3 +1,5 @@
+import { config } from "@/config";
+import { getCached, invalidateCachePattern } from "@/lib/cache";
 import { AppError } from "@/lib/error";
 import { deleteFile } from "@/lib/upload";
 import { ProductResponse } from "@/models";
@@ -18,6 +20,11 @@ export interface IProductsService {
   deleteById(id: number): Promise<ProductResponse>;
 }
 
+const CACHE_KEY = {
+  list: (params: string) => `products:list:${params}`,
+  getById: (id: number) => `products:${id}`,
+};
+
 export const LOW_STOCK_THRESHOLD = 5;
 
 export const ERROR = {
@@ -29,22 +36,41 @@ export class ProductsService implements IProductsService {
   constructor(
     private repo: IProductsRepository,
     private redis: Redis,
-  ) { }
+  ) {}
 
-  list(input: ListProductsInput): Promise<ListProductsResponse> {
-    return this.repo.list(input);
+  async list(input: ListProductsInput): Promise<ListProductsResponse> {
+    const key = CACHE_KEY.list(JSON.stringify(input));
+    const products = await getCached(
+      key,
+      config.redis.cache.products,
+      () => this.repo.list(input),
+      this.redis,
+    );
+
+    return products;
   }
 
   async create(input: ProductInput): Promise<ProductResponse> {
     const product = await this.repo.create(input);
     if (product === "barcode_in_use") throw ERROR.BARCODE_IN_USE;
 
-    await wsManager.broadcast("product:created", { ...product });
+    await Promise.all([
+      await invalidateCachePattern("products:*", this.redis),
+      await wsManager.broadcast("product:created", { ...product }),
+    ]);
+
     return product;
   }
 
   async getById(id: number): Promise<ProductResponse> {
-    const product = await this.repo.getById(id);
+    const key = CACHE_KEY.getById(id);
+    const product = await getCached(
+      key,
+      config.redis.cache.products,
+      () => this.repo.getById(id),
+      this.redis,
+    );
+
     if (!product) throw ERROR.NOT_FOUND;
     return product;
   }
@@ -64,7 +90,11 @@ export class ProductsService implements IProductsService {
       ]);
     }
 
-    await wsManager.broadcast("product:updated", { ...product });
+    await Promise.all([
+      await invalidateCachePattern("products:*", this.redis),
+      await wsManager.broadcast("product:updated", { ...product }),
+    ]);
+
     return product;
   }
 
@@ -76,6 +106,7 @@ export class ProductsService implements IProductsService {
     await Promise.all([
       this.redis.del(`product_low_stock:${id}`),
       this.redis.del(`product_out_of_stock:${id}`),
+      invalidateCachePattern("products:*", this.redis),
       wsManager.broadcast("product:deleted", { id }),
     ]);
 

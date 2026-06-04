@@ -41,6 +41,11 @@ export const config = {
     url: env.REDIS_URL,
     refrehsExpiry: dayjs.duration(7, "day").asSeconds(),
     productNotificationExpiry: dayjs.duration(1, "hour").asSeconds(),
+    cache: {
+      products: dayjs.duration(10, "minutes").asSeconds(),
+      buyers: dayjs.duration(1, "day").asSeconds(),
+      orders: dayjs.duration(1, "day").asSeconds(),
+    },
   },
   jwt: {
     accessSecret: env.JWT_ACCESS_SECRET,

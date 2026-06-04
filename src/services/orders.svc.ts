@@ -11,6 +11,8 @@ import { wsManager } from "@/ws/manager";
 import { LOW_STOCK_THRESHOLD } from "./products.svc";
 import Redis from "ioredis";
 import { config } from "@/config";
+import { getCached, invalidateCachePattern } from "@/lib/cache";
+import { metricsBroadcaster } from "@/lib/metrics-broadcaster";
 
 export interface IOrdersService {
   list(input: ListOrdersInput): Promise<ListOrdersResponse>;
@@ -19,6 +21,11 @@ export interface IOrdersService {
   updateById(id: number, input: OrderInput): Promise<OrderDetailResponse>;
   deleteById(id: number): Promise<OrderResponse>;
 }
+
+const CACHE_KEY = {
+  list: (params: string) => `orders:list:${params}`,
+  getById: (id: number) => `orders:${id}`,
+};
 
 export const ERROR = {
   NOT_FOUND: new AppError("Order not found", 404),
@@ -30,14 +37,29 @@ export class OrdersService implements IOrdersService {
   constructor(
     private repo: IOrdersRepository,
     private redis: Redis,
-  ) { }
+  ) {}
 
-  list(input: ListOrdersInput): Promise<ListOrdersResponse> {
-    return this.repo.list(input);
+  async list(input: ListOrdersInput): Promise<ListOrdersResponse> {
+    const key = CACHE_KEY.list(JSON.stringify(input));
+    const orders = await getCached(
+      key,
+      config.redis.cache.orders,
+      () => this.repo.list(input),
+      this.redis,
+    );
+
+    return orders;
   }
 
   async getById(id: number): Promise<OrderDetailResponse> {
-    const order = await this.repo.getById(id);
+    const key = CACHE_KEY.getById(id);
+    const order = await getCached(
+      key,
+      config.redis.cache.orders,
+      () => this.repo.getById(id),
+      this.redis,
+    );
+
     if (!order) throw ERROR.NOT_FOUND;
     return order;
   }
@@ -80,7 +102,13 @@ export class OrdersService implements IOrdersService {
       }
     }
 
-    await wsManager.broadcast("order:created", { ...order });
+    await Promise.all([
+      invalidateCachePattern("orders:*", this.redis),
+      invalidateCachePattern("products:*", this.redis),
+      wsManager.broadcast("order:created", { ...order }),
+      metricsBroadcaster.broadcast(),
+    ]);
+
     return order;
   }
 
@@ -126,7 +154,13 @@ export class OrdersService implements IOrdersService {
       }
     }
 
-    await wsManager.broadcast("order:updated", { ...res.order });
+    await Promise.all([
+      invalidateCachePattern("orders:*", this.redis),
+      invalidateCachePattern("products:*", this.redis),
+      wsManager.broadcast("order:updated", { ...res.order }),
+      metricsBroadcaster.broadcast(),
+    ]);
+
     return res.order;
   }
 
@@ -142,7 +176,13 @@ export class OrdersService implements IOrdersService {
       ]);
     }
 
-    await wsManager.broadcast("order:deleted", { ...res.order });
+    await Promise.all([
+      invalidateCachePattern("orders:*", this.redis),
+      invalidateCachePattern("products:*", this.redis),
+      wsManager.broadcast("order:deleted", { ...res.order }),
+      metricsBroadcaster.broadcast(),
+    ]);
+
     return res.order;
   }
 }
