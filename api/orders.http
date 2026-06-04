@@ -11,21 +11,18 @@ GET {{API_URL}}/orders/1 HTTP/1.1
 ### ADD ORDER
 
 POST {{API_URL}}/orders HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiam9obkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3ODA0NjYxNTR9.wVG1Kt5WxGWMasegLRPhxvD5s4nvTl2Euw7IzDMEHLk
 
 {
-    "paymentId": 1,
+    "paymentId": 13,
     "buyerId": null,
     "paid": 20000,
+    "date": null,
     "items": [
       {
         "productId": 1,
         "qty": 2,
-        "price": 3000,
-      },
-      {
-        "productId": 2,
-        "qty": 2,
-        "price": 7000,
+        "price": 8000,
       },
     ],
 }
