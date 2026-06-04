@@ -1,8 +1,8 @@
 import { IBuyersRepository } from "@/repositories/buyers.repo";
 import { BuyersService, ERROR } from "@/services/buyers.svc";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { data } from "./data";
-import { getRedis } from "@/tests/lib/with-redis";
+import { getRedis, useRedis } from "@/tests/lib/with-redis";
 
 const repo: IBuyersRepository = {
   list: vi.fn(),
@@ -12,7 +12,13 @@ const repo: IBuyersRepository = {
   deleteById: vi.fn(),
 };
 
-const svc = new BuyersService(repo, getRedis());
+useRedis();
+
+let svc: BuyersService;
+
+beforeAll(() => {
+  svc = new BuyersService(repo, getRedis());
+});
 
 beforeEach(() => {
   vi.resetAllMocks();
