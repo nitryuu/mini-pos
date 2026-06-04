@@ -6,7 +6,7 @@ import { WS_EVENTS, wsManager } from "@/ws/manager";
 
 export const createExportWorker = () => {
   const worker = new Worker("export", exportProcessor, {
-    connection: redis,
+    connection: redis.options,
     concurrency: 2,
   });
 
