@@ -25,14 +25,7 @@ export const useDb = () => {
       .withPassword("test")
       .start();
 
-    client = new SQL(container.getConnectionUri(), {
-      max: 15,
-      idleTimeout: 45,
-      connectionTimeout: 20000,
-      maxLifetime: 300000,
-      onclose: () => console.log("DB connection closed"),
-      onconnect: () => console.log("DB connected"),
-    });
+    client = new SQL(container.getConnectionUri());
 
     db = drizzle({
       client,
