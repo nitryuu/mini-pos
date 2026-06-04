@@ -106,12 +106,13 @@ const createProduct = async (name = "Product A", qty = 20) => {
 describe("Orders E2E", () => {
   describe("POST /api/orders", () => {
     it("sends order created event", async () => {
+      const adminWs = await connectWs("admin");
+
       const [productA, productB] = await Promise.all([
         createProduct(),
         createProduct("Product B"),
       ]);
 
-      const adminWs = await connectWs("admin");
       const notificationPromise = waitForMessage(adminWs);
 
       await app.request("/api/orders", {
@@ -135,12 +136,13 @@ describe("Orders E2E", () => {
     });
 
     it("sends low stock products event", async () => {
+      const adminWs = await connectWs("admin");
+
       const [productA, productB] = await Promise.all([
         createProduct("Product A", 6),
         createProduct("Product B", 6),
       ]);
 
-      const adminWs = await connectWs("admin");
       const notificationPromise = waitForMessage(adminWs);
 
       await app.request("/api/orders", {
@@ -164,12 +166,13 @@ describe("Orders E2E", () => {
     });
 
     it("sends out of stock products event", async () => {
+      const adminWs = await connectWs("admin");
+
       const [productA, productB] = await Promise.all([
         createProduct("Product A", 2),
         createProduct("Product B", 2),
       ]);
 
-      const adminWs = await connectWs("admin");
       const notificationPromise = waitForMessage(adminWs);
 
       await app.request("/api/orders", {
@@ -195,12 +198,12 @@ describe("Orders E2E", () => {
 
   describe("PUT /api/orders/:id", () => {
     it("sends order updated event", async () => {
+      const adminWs = await connectWs("admin");
+
       const [productA, productB] = await Promise.all([
         createProduct(),
         createProduct("Product B"),
       ]);
-
-      const adminWs = await connectWs("admin");
 
       const res = await app.request("/api/orders", {
         method: "POST",
@@ -241,12 +244,12 @@ describe("Orders E2E", () => {
     });
 
     it("sends low stock products event", async () => {
+      const adminWs = await connectWs("admin");
+
       const [productA, productB] = await Promise.all([
         createProduct(),
         createProduct("Product B"),
       ]);
-
-      const adminWs = await connectWs("admin");
 
       const res = await app.request("/api/orders", {
         method: "POST",
@@ -288,12 +291,12 @@ describe("Orders E2E", () => {
     });
 
     it("sends out of stock products event", async () => {
+      const adminWs = await connectWs("admin");
+
       const [productA, productB] = await Promise.all([
         createProduct(),
         createProduct("Product B"),
       ]);
-
-      const adminWs = await connectWs("admin");
 
       const res = await app.request("/api/orders", {
         method: "POST",
@@ -337,12 +340,12 @@ describe("Orders E2E", () => {
 
   describe("DELETE /api/orders/:id", () => {
     it("sends order deleted event", async () => {
+      const adminWs = await connectWs("admin");
+
       const [productA, productB] = await Promise.all([
         createProduct(),
         createProduct("Product B"),
       ]);
-
-      const adminWs = await connectWs("admin");
 
       const res = await app.request("/api/orders", {
         method: "POST",
