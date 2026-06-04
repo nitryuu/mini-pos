@@ -55,8 +55,8 @@ export class ProductsService implements IProductsService {
     if (product === "barcode_in_use") throw ERROR.BARCODE_IN_USE;
 
     await Promise.all([
-      await invalidateCachePattern("products:*", this.redis),
-      await wsManager.broadcast("product:created", { ...product }),
+      invalidateCachePattern("products:*", this.redis),
+      wsManager.broadcast("product:created", { ...product }),
     ]);
 
     return product;
@@ -91,8 +91,8 @@ export class ProductsService implements IProductsService {
     }
 
     await Promise.all([
-      await invalidateCachePattern("products:*", this.redis),
-      await wsManager.broadcast("product:updated", { ...product }),
+      invalidateCachePattern("products:*", this.redis),
+      wsManager.broadcast("product:updated", { ...product }),
     ]);
 
     return product;
