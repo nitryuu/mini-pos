@@ -3,7 +3,7 @@ import {
   PostgreSqlContainer,
   StartedPostgreSqlContainer,
 } from "@testcontainers/postgresql";
-import { afterAll, afterEach, beforeAll } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach } from "vitest";
 import * as schema from "@/models/index";
 import { drizzle } from "drizzle-orm/bun-sql";
 import { migrate } from "drizzle-orm/bun-sql/migrator";
@@ -37,12 +37,11 @@ export const useDb = () => {
     ]);
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await Promise.all([
       db.delete(schema.buyers),
       db.delete(schema.users),
       db.delete(schema.orders),
-      db.delete(schema.orderItems),
       db.delete(schema.products),
     ]);
   });
