@@ -3,12 +3,13 @@ import {
   PostgreSqlContainer,
   StartedPostgreSqlContainer,
 } from "@testcontainers/postgresql";
-import { afterAll, afterEach, beforeAll, beforeEach } from "vitest";
+import { afterAll, beforeAll, beforeEach } from "vitest";
 import * as schema from "@/models/index";
 import { drizzle } from "drizzle-orm/bun-sql";
 import { migrate } from "drizzle-orm/bun-sql/migrator";
 import { PaymentsRepository } from "@/repositories/payments.repo";
 import { SQL } from "bun";
+import { Wait } from "testcontainers";
 
 let client: SQL;
 let db: DB;
@@ -19,7 +20,12 @@ export const useDb = () => {
   let container: StartedPostgreSqlContainer;
 
   beforeAll(async () => {
-    container = await new PostgreSqlContainer("postgres:18").start();
+    container = await new PostgreSqlContainer("postgres:18")
+      .withDatabase("test")
+      .withUsername("test")
+      .withPassword("test")
+      .start();
+
     client = new SQL(container.getConnectionUri());
 
     db = drizzle({
